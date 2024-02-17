@@ -1,4 +1,4 @@
-function integerToRomans(number) {
+function integerToRomans(number, result=[]) {
     if (number === 0) {
         return false;
     }
@@ -10,6 +10,7 @@ function integerToRomans(number) {
         'L': 50,
         'X': 10,
         'V': 5,
+        'IV': 4,
         'I': 1,
     }
     // loop through number to find the highest decimal value
@@ -22,20 +23,14 @@ function integerToRomans(number) {
     // 2 - 1 = 1    -> I
     // 1 - 1 = 0    -> I
 
-    let result = []
-
-    // for (let i=0; i<number; i++){
-    //     console.log(symbol[i] <= number)
-    //     if (symbol[i] <= number) {
-    //         number = number - symbol[i];
-    //         console.log(i, number);
-    //     }
-    // }
     for (const num in symbol){
         if (symbol[num]<=number){
-            number = number - symbol[num]
-            console.log(num, number)
+            result.push(num);
+            number = number - symbol[num];
+            integerToRomans(number, result);
+            return result.join("");
         }
+        console.log(`${num}, ${result} ${number}-${symbol[num]}`);
     }
 }
 console.log(integerToRomans(79))
